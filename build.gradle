@@ -5,8 +5,8 @@ repositories {
     mavenCentral()
 }
 
-group='com.nobrain.gradle'
-version='0.1'
+group = 'com.nobrain.gradle'
+version = '0.1'
 
 
 dependencies {
@@ -17,4 +17,43 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+uploadArchives {
+}
+
+modifyPom {
+    project {
+        name 'Gradle Plug-in for Play store Publisher'
+        description "A Gradle plugin which enables Publish for Android Play store."
+        url 'https://github.com/ZeroBrain/gradle-play-publisher'
+        inceptionYear '2014'
+
+        scm {
+            url 'https://github.com/ZeroBrain/gradle-play-publisher'
+            connection 'scm:git:git://github.com/ZeroBrain/gradle-play-publisher'
+            developerConnection 'scm:git:ssh://git@github.com/ZeroBrain/gradle-play-publisher'
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+
+        organization {
+            name 'Nobrain'
+            url 'http://zerobrain.tistory.org'
+        }
+
+        developers {
+            developer {
+                id 'jsuch2362'
+                name 'SeongUg Jung'
+                email 'jsuch2362@gmail.com'
+            }
+        }
+    }
 }
