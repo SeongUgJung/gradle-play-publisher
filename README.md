@@ -7,6 +7,8 @@ but That's only Java and Python Library.
 so I think need for Gradle task.
 
 
+It was refer to [Google Java Sample](https://github.com/googlesamples/android-play-publisher-api/tree/master/v2/java)
+
 # HOW TO USE
 
 - Build Script Setup
