@@ -48,3 +48,5 @@ publisher {
 }
 ```
 
+# HOW TO Set 'Google Play Publisher API'
+go to Wiki "Set up Play Publisher API"
