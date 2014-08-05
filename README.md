@@ -52,3 +52,7 @@ publisher {
 
 # HOW TO Set 'Google Play Publisher API'
 Go to [Wiki #1] (https://github.com/ZeroBrain/gradle-play-publisher/wiki/01.-How-to-Set-Google-Play-Publisher-API)
+
+
+# Future Job
+  * support service oauth (now only client-secret oauth)
