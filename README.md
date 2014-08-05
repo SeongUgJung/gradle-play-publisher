@@ -51,4 +51,4 @@ publisher {
 ```
 
 # HOW TO Set 'Google Play Publisher API'
-Coming soon...
+Go to [Wiki #1] (https://github.com/ZeroBrain/gradle-play-publisher/wiki/01.-How-to-Set-Google-Play-Publisher-API)
