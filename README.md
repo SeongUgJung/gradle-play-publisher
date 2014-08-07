@@ -18,7 +18,7 @@ buildscript {
         mavenCentral()
 
         dependencies {
-            classpath 'com.nobrain.gradle:gradle-play-publisher:0.1.2'
+            classpath 'com.nobrain.gradle:gradle-play-publisher:0.1.3'
         }
     }
 }
