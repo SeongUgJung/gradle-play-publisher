@@ -6,9 +6,10 @@ buildscript {
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 group = 'com.nobrain.gradle'
-version = '0.1.1'
+version = '0.1.3'
 
 
 dependencies {
@@ -42,6 +43,10 @@ artifacts {
     archives javadocJar
 }
 
+signing {
+    sign configurations.archives
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -71,7 +76,7 @@ uploadArchives {
                 }
                 organization {
                     name 'Nobrain'
-                    url 'http://zerobrain.tistory.org'
+                    url 'http://zerobrain.tistory.com'
                 }
 
                 developers {
@@ -82,6 +87,9 @@ uploadArchives {
                     }
                 }
             }
+
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
         }
     }
 }

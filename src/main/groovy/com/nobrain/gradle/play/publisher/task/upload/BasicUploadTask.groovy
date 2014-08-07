@@ -1,4 +1,4 @@
-package com.nobrain.gradle.play.publisher
+package com.nobrain.gradle.play.publisher.task.upload
 
 import com.google.play.developerapi.publisher.samples.BasicUploadApk
 import org.gradle.api.DefaultTask
@@ -9,12 +9,12 @@ import org.gradle.api.tasks.TaskAction
  */
 class BasicUploadTask extends DefaultTask{
 
-    def applicationName// = project.publisher.applicationName
-    def packageName// = project.publisher.packageName
-    File apkFile// = project.publisher.apkFile
-    File secretFile// = project.publisher.secretFile
+    def applicationName
+    def packageName
+    File apkFile
+    File secretFile
     File authStore
-    def productType// = project.publisher.productType
+    def productType
 
     @TaskAction
     def playUpload() {
@@ -22,5 +22,4 @@ class BasicUploadTask extends DefaultTask{
         BasicUploadApk basicUploadApk = new BasicUploadApk();
         basicUploadApk.upload(applicationName, packageName, apkFile, secretFile, authStore, productType)
     }
-
 }

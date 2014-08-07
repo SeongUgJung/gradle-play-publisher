@@ -1,5 +1,6 @@
 package com.nobrain.gradle.play.publisher
 
+import com.nobrain.gradle.play.publisher.task.upload.BasicUploadTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
@@ -18,8 +19,8 @@ class PlayPublisherTest {
         project.apply plugin: 'PlayPublisher'
 
         project.publisher {
-            applicationName "application"
-            packageName "package"
+            applicationName "applications"
+            packageName "packages"
             apkFile = new File("")
             secretFile = new File("")
             productType "product"
