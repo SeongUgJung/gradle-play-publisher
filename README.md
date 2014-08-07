@@ -55,11 +55,11 @@ Go to [Wiki #1] (https://github.com/ZeroBrain/gradle-play-publisher/wiki/01.-How
 
 # Change Log
 * 0.1.2
-  First Release
+  - First Release
 * 0.1.3
-  add task for cleaning auth store path
-  publisher.authStore is deprecated : authStore static path is ./.store
-  add validate publisher property for playPublish task 
+  - add task for cleaning auth store path
+  - publisher.authStore is deprecated : authStore static path is ./.store
+  - add validate publisher property for playPublish task 
 
 # Future Job
   * support service oauth (now only client-secret oauth)
