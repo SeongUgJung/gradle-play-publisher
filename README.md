@@ -1,5 +1,14 @@
 It's Gradle Plug-in for Android Play-store Publisher API
 
+Sorry, Watchers.
+
+I have some complex job, In Work, Life.
+I got 4 sprints to septempber in work. and I gonna finish my private job.
+
+This project is not stopping. just hold to september mid.
+
+I'll be back.
+
 # Why make Gradle?
 
 Jul 28, 2014. Google update Play store API for publisher.
