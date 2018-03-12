@@ -27,7 +27,7 @@ buildscript {
         mavenCentral()
 
         dependencies {
-            classpath 'com.nobrain.gradle:gradle-play-publisher:0.1.3'
+            classpath 'com.nobrain.gradle:gradle-play-publisher:0.1.5'
         }
     }
 }
@@ -43,7 +43,6 @@ $> ./gradlew tasks
 Other tasks           
 -----------           
 playPublish
-cleanAuth
                
 ```
 
@@ -54,6 +53,7 @@ publisher {
     applicationName "[INPUT Application Name]"
     packageName "[INPUT Package Name]"
     apkFile file("apk file")
+    mappingFile file("mapping file")
     secretFile file('secret json file')
     productType 'production' // production, alpha, beta
 }
