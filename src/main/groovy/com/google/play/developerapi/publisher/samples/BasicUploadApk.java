@@ -45,56 +45,55 @@ public class BasicUploadApk {
 
     private static final Log log = LogFactory.getLog(BasicUploadApk.class);
 
-    public void upload(String applicationName, String packageName, File apkFiles, File secretFile, File authStore,String productType) {
-        try {
-            Preconditions.checkArgument(!Strings.isNullOrEmpty(packageName),
-                    "ApplicationConfig.PACKAGE_NAME cannot be null or empty!");
+    public void upload(String applicationName, String packageName, File apkFiles, File secretFile, File mappingFile, String productType) throws IOException, GeneralSecurityException {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(packageName),
+                "ApplicationConfig.PACKAGE_NAME cannot be null or empty!");
 
-            // Create the API service.
-            AndroidPublisher service = AndroidPublisherHelper.init(applicationName, secretFile, authStore);
-            final Edits edits = service.edits();
+        // Create the API service.
+        AndroidPublisher service = AndroidPublisherHelper.init(applicationName, secretFile);
+        final Edits edits = service.edits();
 
-            // Create a new edit to make changes to your listing.
-            Insert editRequest = edits
-                    .insert(packageName,
-                            null /** no content */);
-            AppEdit edit = editRequest.execute();
-            final String editId = edit.getId();
-            log.info(String.format("Created edit with id: %s", editId));
+        // Create a new edit to make changes to your listing.
+        Insert editRequest = edits
+                .insert(packageName,
+                        null /** no content */);
+        AppEdit edit = editRequest.execute();
+        final String editId = edit.getId();
+        log.info(String.format("Created edit with id: %s", editId));
 
-            // Upload new apk to developer console
-            final AbstractInputStreamContent apkFile =
-                    new FileContent(AndroidPublisherHelper.MIME_TYPE_APK, apkFiles);
-            Upload uploadRequest = edits
-                    .apks()
-                    .upload(packageName,
-                            editId,
-                            apkFile);
-            Apk apk = uploadRequest.execute();
-            log.info(String.format("Version code %d has been uploaded",
-                    apk.getVersionCode()));
+        // Upload new apk to developer console
+        final AbstractInputStreamContent apkFile =
+                new FileContent(AndroidPublisherHelper.MIME_TYPE_APK, apkFiles);
+        Upload uploadRequest = edits
+                .apks()
+                .upload(packageName,
+                        editId,
+                        apkFile);
+        Apk apk = uploadRequest.execute();
+        log.info(String.format("Version code %d has been uploaded",
+                apk.getVersionCode()));
 
-            // Assign apk to alpha track.
-            List<Integer> apkVersionCodes = new ArrayList<Integer>();
-            apkVersionCodes.add(apk.getVersionCode());
-            Update updateTrackRequest = edits
-                    .tracks()
-                    .update(packageName,
-                            editId,
-                            productType,
-                            new Track().setVersionCodes(apkVersionCodes));
-            Track updatedTrack = updateTrackRequest.execute();
-            log.info(String.format("Track %s has been updated.", updatedTrack.getTrack()));
+        // Assign apk to alpha track.
+        List<Integer> apkVersionCodes = new ArrayList<Integer>();
+        apkVersionCodes.add(apk.getVersionCode());
+        Update updateTrackRequest = edits
+                .tracks()
+                .update(packageName,
+                        editId,
+                        productType,
+                        new Track().setVersionCodes(apkVersionCodes));
+        Track updatedTrack = updateTrackRequest.execute();
+        log.info(String.format("Track %s has been updated.", updatedTrack.getTrack()));
 
-            // Commit changes for edit.
-            Commit commitRequest = edits.commit(packageName, editId);
-            AppEdit appEdit = commitRequest.execute();
-            log.info(String.format("App edit with id %s has been comitted", appEdit.getId()));
+        // Commit changes for edit.
+        Commit commitRequest = edits.commit(packageName, editId);
+        AppEdit appEdit = commitRequest.execute();
+        log.info(String.format("App edit with id %s has been comitted", appEdit.getId()));
 
-        } catch (IOException ex) {
-            log.error("Excpetion was thrown while uploading apk to production track", ex);
-        } catch (GeneralSecurityException ex) {
-            log.error("Excpetion was thrown while uploading apk to production track", ex);
+        // Upload Proguard mapping.txt if available
+        if (mappingFile != null && mappingFile.exists()) {
+            FileContent fileStream = new FileContent("application/octet-stream", mappingFile);
+            edits.deobfuscationfiles().upload(packageName, editId, apk.getVersionCode(), "proguard", fileStream).execute();
         }
     }
 }
