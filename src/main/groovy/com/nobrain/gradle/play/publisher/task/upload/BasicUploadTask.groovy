@@ -12,14 +12,14 @@ class BasicUploadTask extends DefaultTask{
     def applicationName
     def packageName
     File apkFile
+    File mappingFile
     File secretFile
-    File authStore
     def productType
 
     @TaskAction
     def playUpload() {
 
         BasicUploadApk basicUploadApk = new BasicUploadApk();
-        basicUploadApk.upload(applicationName, packageName, apkFile, secretFile, authStore, productType)
+        basicUploadApk.upload(applicationName, packageName, apkFile, secretFile, mappingFile, productType)
     }
 }

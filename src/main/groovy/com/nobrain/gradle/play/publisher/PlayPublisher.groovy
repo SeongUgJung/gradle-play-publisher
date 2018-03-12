@@ -17,10 +17,6 @@ class PlayPublisher implements Plugin<Project> {
     void apply(Project project) {
 
         def extension = project.extensions.create('publisher', PublisherConfig)
-        def cleanTask = project.task("cleanAuth", type: CleanOAuthTask)
-        cleanTask.doFirst {
-            cleanTask.delete '.store'
-        }
 
         def publishTask = project.task("playPublish", type: BasicUploadTask)
         publishTask.doFirst {
@@ -47,19 +43,14 @@ class PlayPublisher implements Plugin<Project> {
                 throw new GradleException('Product Type must be one of [production, alpha, beta]')
             }
 
-            if (project.publisher.authStore != null) {
-                println('Auth Store Path will be deprecated')
-                publishTask.authStore = new File('.store')
-            }
-
             publishTask.applicationName project.publisher.applicationName
             publishTask.packageName project.publisher.packageName
             publishTask.apkFile project.publisher.apkFile
             publishTask.secretFile project.publisher.secretFile
             publishTask.productType project.publisher.productType
+            publishTask.mappingFile project.publisher.mappingFile
         }
 
     }
-
 
 }

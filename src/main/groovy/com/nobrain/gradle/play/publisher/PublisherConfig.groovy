@@ -8,9 +8,8 @@ class PublisherConfig {
     String applicationName
     String packageName
     File apkFile
+    File mappingFile
     File secretFile
-    File authStore
     String productType
-
 
 }
