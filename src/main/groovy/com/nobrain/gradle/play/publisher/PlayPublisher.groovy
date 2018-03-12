@@ -1,6 +1,6 @@
 package com.nobrain.gradle.play.publisher
 
-import com.nobrain.gradle.play.publisher.task.clean.CleanOAuthTask
+
 import com.nobrain.gradle.play.publisher.task.upload.BasicUploadTask
 import com.nobrain.gradle.play.publisher.util.StringUtils
 import org.gradle.api.GradleException
@@ -16,7 +16,7 @@ class PlayPublisher implements Plugin<Project> {
     @Override
     void apply(Project project) {
 
-        def extension = project.extensions.create('publisher', PublisherConfig)
+        project.extensions.create('publisher', PublisherConfig)
 
         def publishTask = project.task("playPublish", type: BasicUploadTask)
         publishTask.doFirst {
