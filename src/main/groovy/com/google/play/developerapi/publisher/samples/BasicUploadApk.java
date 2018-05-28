@@ -54,9 +54,7 @@ public class BasicUploadApk {
         final Edits edits = service.edits();
 
         // Create a new edit to make changes to your listing.
-        Insert editRequest = edits
-                .insert(packageName,
-                        null /** no content */);
+        Insert editRequest = edits.insert(packageName, null);
         AppEdit edit = editRequest.execute();
         final String editId = edit.getId();
         log.info(String.format("Created edit with id: %s", editId));
@@ -74,7 +72,7 @@ public class BasicUploadApk {
                 apk.getVersionCode()));
 
         // Assign apk to alpha track.
-        List<Integer> apkVersionCodes = new ArrayList<Integer>();
+        List<Integer> apkVersionCodes = new ArrayList<>();
         apkVersionCodes.add(apk.getVersionCode());
         Update updateTrackRequest = edits
                 .tracks()
@@ -85,15 +83,15 @@ public class BasicUploadApk {
         Track updatedTrack = updateTrackRequest.execute();
         log.info(String.format("Track %s has been updated.", updatedTrack.getTrack()));
 
-        // Commit changes for edit.
-        Commit commitRequest = edits.commit(packageName, editId);
-        AppEdit appEdit = commitRequest.execute();
-        log.info(String.format("App edit with id %s has been comitted", appEdit.getId()));
-
         // Upload Proguard mapping.txt if available
         if (mappingFile != null && mappingFile.exists()) {
             FileContent fileStream = new FileContent("application/octet-stream", mappingFile);
             edits.deobfuscationfiles().upload(packageName, editId, apk.getVersionCode(), "proguard", fileStream).execute();
         }
+
+        // Commit changes for edit.
+        Commit commitRequest = edits.commit(packageName, editId);
+        AppEdit appEdit = commitRequest.execute();
+        log.info(String.format("App edit with id %s has been comitted", appEdit.getId()));
     }
 }
