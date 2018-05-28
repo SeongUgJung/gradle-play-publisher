@@ -8,7 +8,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 group = 'com.nobrain.gradle'
-version = '0.1.5'
+version = '0.1.6'
 
 
 dependencies {
